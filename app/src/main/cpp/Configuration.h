@@ -72,6 +72,11 @@ typedef struct
     char* dsiNandPath;
     char* internalFilesDir;
     float fastForwardSpeedMultiplier;
+    // ff-bgm1x: 배속 중 BGM·효과음 1배속
+    bool bgm1x;
+    bool bgm1xFastForwardCutscenes;
+    bool bgm1xSfx;
+    int bgm1xSfxVolume;  // 0~256
     bool showBootScreen;
     bool useJit;
     int consoleType;

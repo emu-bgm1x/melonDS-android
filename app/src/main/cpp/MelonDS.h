@@ -61,6 +61,11 @@ namespace MelonDSAndroid {
     extern void updateMotionData(float ax, float ay, float az, float rx, float ry, float rz);
     extern void start();
     extern u32 loop();
+    // ff-bgm1x: 연출 중이라 배속을 멈춰야 하는지 (에뮬레이션 스레드)
+    extern bool isBgmSpeedHold();
+    // ff-bgm1x 소리 분류 (앱 화면): 문자열 명령, 재생 소리 (게임이 없으면 "error\t..." / 0)
+    extern std::string catalogCommand(const std::string& cmd);
+    extern int previewRender(s16* stereo, int frames, int sampleRate);
     extern Frame* getPresentationFrame(std::optional<std::chrono::time_point<std::chrono::steady_clock>> deadline);
     extern void pause();
     extern void resume();

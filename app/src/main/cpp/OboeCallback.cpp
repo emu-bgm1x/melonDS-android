@@ -22,6 +22,7 @@ OboeCallback::onAudioReady(oboe::AudioStream *stream, void *audioData, int32_t n
     }
 
     int len = numFrames;
+    currentInstance->setBgmOutputRate(stream->getSampleRate());  // ff-bgm1x
 
     double skew = std::clamp(60.0 / INTERNAL_FRAME_RATE, 0.995, 1.005);
     currentInstance->setAudioOutputSkew(skew);
@@ -34,6 +35,8 @@ OboeCallback::onAudioReady(oboe::AudioStream *stream, void *audioData, int32_t n
     if (num_in < 1)
     {
         memset(audioData, 0, len * sizeof(s16) * 2);
+        // ff-bgm1x: 원본 소리가 없어도 1배속 소리는 낸다
+        currentInstance->mixBgm((s16*) audioData, len, _volume);
         return oboe::DataCallbackResult::Continue;
     }
 
@@ -51,6 +54,9 @@ OboeCallback::onAudioReady(oboe::AudioStream *stream, void *audioData, int32_t n
         for (int i = num_in; i < len_in; i++)
             ((u32*)audioData)[i] = ((u32*)audioData)[last];
     }
+
+    // ff-bgm1x: 배속과 관계없이 1배속으로 만든 BGM·효과음을 더한다
+    currentInstance->mixBgm((s16*) audioData, len, _volume);
 
     if (_recordingStream) [[unlikely]]
         _recordingStream->write((char*) audioData, numFrames * sizeof(s16) * 2);

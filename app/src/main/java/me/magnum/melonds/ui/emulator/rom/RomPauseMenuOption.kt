@@ -5,10 +5,12 @@ import me.magnum.melonds.ui.emulator.PauseMenuOption
 
 enum class RomPauseMenuOption(override val textResource: Int) : PauseMenuOption {
     SETTINGS(R.string.settings),
+    LAYOUT(R.string.ff_layout_edit_game),  // ff-bgm1x: 게임 중에 버튼 배치 편집 (기본 / 이 게임)
     SAVE_STATE(R.string.save_state),
     LOAD_STATE(R.string.load_state),
     REWIND(R.string.rewind),
     CHEATS(R.string.cheats),
+    SOUNDS(R.string.ff_sound_catalog),  // ff-bgm1x: 소리 분류 (1x Lab 앱)
     VIEW_ACHIEVEMENTS(R.string.achievements),
     RESET(R.string.reset),
     EXIT(R.string.exit)

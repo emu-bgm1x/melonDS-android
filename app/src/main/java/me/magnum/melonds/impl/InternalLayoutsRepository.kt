@@ -52,6 +52,8 @@ class InternalLayoutsRepository(private val context: Context, private val gson: 
         return layouts
             .onStart { ensureLayoutsAreLoaded() }
             .map { it.filterNotDeleted() }
+            // ff-bgm1x: 게임 전용 배치는 배치 목록·고르기 화면에 보이지 않게 한다
+            .map { list -> list.filterNot { me.magnum.melonds.domain.model.layout.FfGameLayouts.isGameLayout(it) } }
     }
 
     override suspend fun getLayout(id: UUID): LayoutConfiguration? {

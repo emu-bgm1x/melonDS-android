@@ -24,7 +24,7 @@ class ControllerConfiguration(configList: List<InputConfig>) {
             Input.QUICK_SAVE,
             Input.QUICK_LOAD,
             Input.REWIND,
-        )
+        ) + if (me.magnum.melonds.BuildConfig.FF_LAB) listOf(Input.SOUND_CATALOG) else emptyList()
     }
 
     val inputMapper: List<InputConfig>

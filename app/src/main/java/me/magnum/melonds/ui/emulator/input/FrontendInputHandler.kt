@@ -15,6 +15,7 @@ abstract class FrontendInputHandler : IInputListener {
             Input.QUICK_SAVE -> onQuickSave()
             Input.QUICK_LOAD -> onQuickLoad()
             Input.REWIND -> onRewind()
+            Input.SOUND_CATALOG -> onSoundCatalog()
             else -> {}
         }
     }
@@ -34,4 +35,6 @@ abstract class FrontendInputHandler : IInputListener {
     abstract fun onQuickSave()
     abstract fun onQuickLoad()
     abstract fun onRewind()
+    // ff-bgm1x: 소리 분류 화면 (1x Lab 앱)
+    open fun onSoundCatalog() {}
 }

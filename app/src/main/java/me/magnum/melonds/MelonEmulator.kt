@@ -89,6 +89,11 @@ object MelonEmulator {
 
 	external fun getFPS(): Float
 
+	// ff-bgm1x 소리 분류 (1x Lab 앱): 문자열 명령, 재생 소리
+	external fun catalogCommand(cmd: String): String
+
+	external fun previewRender(buffer: ShortArray, frames: Int, sampleRate: Int): Int
+
 	external fun pauseEmulation()
 
 	external fun resumeEmulation()

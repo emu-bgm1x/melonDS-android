@@ -256,6 +256,7 @@ private fun getInputName(input: Input): String? {
         Input.QUICK_SAVE -> R.string.input_quick_save
         Input.QUICK_LOAD -> R.string.input_quick_load
         Input.REWIND -> R.string.rewind
+        Input.SOUND_CATALOG -> R.string.ff_sound_catalog
         else -> return null
     }
 

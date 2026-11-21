@@ -14,6 +14,11 @@ data class EmulatorConfiguration(
         val dsiNandUri: Uri?,
         val internalDirectory: String,
         val fastForwardSpeedMultiplier: Float,
+        // ff-bgm1x: 배속 중 BGM·효과음 1배속 (네이티브가 이 이름으로 읽는다)
+        val bgm1x: Boolean,
+        val bgm1xFastForwardCutscenes: Boolean,
+        val bgm1xSfx: Boolean,
+        val bgm1xSfxVolume: Int,
         val rewindEnabled: Boolean,
         val rewindPeriodSeconds: Int,
         val rewindWindowSeconds: Int,

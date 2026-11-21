@@ -210,6 +210,25 @@ namespace MelonDSAndroid
         return instance->runFrame();
     }
 
+    bool isBgmSpeedHold()
+    {
+        return instance && instance->isBgmSpeedHold();
+    }
+
+    std::string catalogCommand(const std::string& cmd)
+    {
+        std::shared_ptr<MelonInstance> current = instance;
+        if (!current)
+            return "error\tNo game is running.";
+        return current->catalogCommand(cmd);
+    }
+
+    int previewRender(s16* stereo, int frames, int sampleRate)
+    {
+        std::shared_ptr<MelonInstance> current = instance;
+        return current ? current->previewRender(stereo, frames, sampleRate) : 0;
+    }
+
     Frame* getPresentationFrame(std::optional<std::chrono::time_point<std::chrono::steady_clock>> deadline)
     {
         if (!instance)

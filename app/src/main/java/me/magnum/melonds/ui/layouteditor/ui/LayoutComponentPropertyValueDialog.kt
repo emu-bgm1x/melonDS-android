@@ -36,6 +36,10 @@ fun LayoutComponentPropertyValueDialog(
             LayoutComponentEditableProperty.SIZE -> stringResource(R.string.label_size)
             LayoutComponentEditableProperty.WIDTH -> stringResource(R.string.label_width)
             LayoutComponentEditableProperty.HEIGHT -> stringResource(R.string.label_height)
+            LayoutComponentEditableProperty.X -> stringResource(R.string.ff_layout_x)
+            LayoutComponentEditableProperty.Y -> stringResource(R.string.ff_layout_y)
+            LayoutComponentEditableProperty.MARGIN -> stringResource(R.string.ff_layout_margin_title)
+            LayoutComponentEditableProperty.GRID -> stringResource(R.string.ff_layout_grid_title)
             null -> ""
         },
         dialogState = dialogState,

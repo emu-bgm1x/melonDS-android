@@ -62,7 +62,17 @@ add_library(
         ${ANDROID-CPP}/renderer/FrameQueue.cpp
         ${ANDROID-CPP}/renderer/ScreenshotRenderer.cpp
         ${ANDROID-CPP}/retroachievements/RetroAchievementsManager.cpp
+        # ff-bgm1x
+        ${ANDROID-CPP}/bgm1x/BgmReplacer.cpp
+        ${ANDROID-CPP}/bgm1x/NitroSynth.cpp
+        ${ANDROID-CPP}/bgm1x/NitroStrm.cpp
+        ${ANDROID-CPP}/bgm1x/SoundCatalog.cpp
+        ${ANDROID-CPP}/bgm1x/SoundPreview.cpp
+        ${ANDROID-CPP}/bgm1x/NdsCatalogCommand.cpp
 )
+
+# ff-bgm1x: 공용 소리 재생(SoundPreview)의 안드로이드 갈래
+target_compile_definitions(melonDS-android-frontend PRIVATE FFBGM_ANDROID)
 
 target_include_directories(melonDS-android-frontend PUBLIC
         ${ANDROID-CPP}/
