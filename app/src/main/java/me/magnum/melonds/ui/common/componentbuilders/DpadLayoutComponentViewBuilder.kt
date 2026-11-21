@@ -9,7 +9,9 @@ import me.magnum.melonds.ui.common.LayoutComponentViewBuilder
 class DpadLayoutComponentViewBuilder : LayoutComponentViewBuilder() {
     override fun build(context: Context): View {
         return ImageView(context).apply {
-            setImageResource(R.drawable.keypad)
+            // ff-bgm1x: 스킨 그림이 있으면 그것
+            val skin = me.magnum.melonds.ui.layouteditor.skin.FfSkinButtons.current?.dpad
+            if (skin != null) setImageBitmap(skin) else setImageResource(R.drawable.keypad)
         }
     }
 

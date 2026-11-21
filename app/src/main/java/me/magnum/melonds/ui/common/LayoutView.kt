@@ -22,6 +22,13 @@ open class LayoutView(context: Context, attrs: AttributeSet?) : FrameLayout(cont
     }
 
     open fun instantiateLayout(layoutConfiguration: UILayout, layoutTarget: LayoutTarget = LayoutTarget.MAIN_SCREEN) {
+        // ff-bgm1x: 배경이 스킨이면 버튼도 그 스킨 그림으로 만든다
+        val screenLayout = if (layoutTarget == LayoutTarget.MAIN_SCREEN) layoutConfiguration.mainScreenLayout else layoutConfiguration.secondaryScreenLayout
+        me.magnum.melonds.ui.layouteditor.skin.FfSkinButtons.select(
+            context,
+            screenLayout.backgroundId,
+            screenLayout.backgroundMode == me.magnum.melonds.domain.model.layout.BackgroundMode.STRETCH,
+        )
         destroyLayout()
         loadLayout(layoutConfiguration, layoutTarget)
     }

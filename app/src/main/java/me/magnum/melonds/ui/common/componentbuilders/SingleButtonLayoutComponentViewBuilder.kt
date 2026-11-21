@@ -10,7 +10,17 @@ import me.magnum.melonds.ui.common.LayoutComponentViewBuilder
 class SingleButtonLayoutComponentViewBuilder(private val layoutComponent: LayoutComponent) : LayoutComponentViewBuilder() {
     override fun build(context: Context): View {
         return ImageView(context).apply {
-            setImageResource(getInputDrawable())
+            // ff-bgm1x: 스킨 그림이 있으면 그것
+            val skin = me.magnum.melonds.ui.layouteditor.skin.FfSkinButtons.current?.let {
+                when (layoutComponent) {
+                    LayoutComponent.BUTTON_L -> it.l
+                    LayoutComponent.BUTTON_R -> it.r
+                    LayoutComponent.BUTTON_START -> it.start
+                    LayoutComponent.BUTTON_SELECT -> it.select
+                    else -> null
+                }
+            }
+            if (skin != null) setImageBitmap(skin) else setImageResource(getInputDrawable())
         }
     }
 

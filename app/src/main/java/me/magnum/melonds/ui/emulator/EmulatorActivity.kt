@@ -254,6 +254,18 @@ class EmulatorActivity : AppCompatActivity() {
         viewModel.onCheatsChanged()
         viewModel.resumeEmulator()
     }
+    // ff-bgm1x: 게임 중 버튼 배치 편집에서 돌아왔을 때 (이 게임 배치를 롬에 지정하거나 초기화)
+    private val ffLayoutEditorLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        val data = it.data
+        if (it.resultCode == RESULT_OK && data != null) {
+            viewModel.onLayoutEditorResult(
+                forGame = data.getBooleanExtra(me.magnum.melonds.ui.layouteditor.LayoutEditorActivity.RESULT_FF_FOR_GAME, false),
+                layoutId = data.getStringExtra(me.magnum.melonds.ui.layouteditor.LayoutEditorActivity.RESULT_FF_LAYOUT_ID)?.let { id -> java.util.UUID.fromString(id) },
+                reset = data.getBooleanExtra(me.magnum.melonds.ui.layouteditor.LayoutEditorActivity.RESULT_FF_RESET, false),
+            )
+        }
+        viewModel.resumeEmulator()
+    }
     private val permissionRequestLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
         lifecycleScope.launch {
             it.keys.forEach { permission ->
@@ -505,6 +517,18 @@ class EmulatorActivity : AppCompatActivity() {
                         EmulatorUiEvent.OpenScreen.SettingsScreen -> {
                             val settingsIntent = Intent(this@EmulatorActivity, SettingsActivity::class.java)
                             settingsLauncher.launch(settingsIntent)
+                        }
+                        is EmulatorUiEvent.OpenScreen.LayoutEditor -> {
+                            val e = me.magnum.melonds.ui.layouteditor.LayoutEditorActivity
+                            val intent = Intent(this@EmulatorActivity, me.magnum.melonds.ui.layouteditor.LayoutEditorActivity::class.java).apply {
+                                putExtra(e.KEY_LAYOUT_ID, it.layoutId.toString())
+                                putExtra(e.KEY_FF_GAME_MODE, true)
+                                putExtra(e.KEY_FF_INITIAL_FOR_GAME, it.initialForGame)
+                                putExtra(e.KEY_FF_GAME_LAYOUT_ID, it.gameLayoutId?.toString())
+                                putExtra(e.KEY_FF_GLOBAL_LAYOUT_ID, it.globalLayoutId.toString())
+                                putExtra(e.KEY_FF_GAME_NAME, it.gameName)
+                            }
+                            ffLayoutEditorLauncher.launch(intent)
                         }
                         is EmulatorUiEvent.ShowPauseMenu -> showPauseMenu(it.pauseMenu)
                         is EmulatorUiEvent.ShowRewindWindow -> showRewindWindow(it.rewindWindow, it.windowPosition)
